@@ -3,7 +3,7 @@ from K22416C.FINAL.Connectors.Movie import Movie
 
 class MovieConnector(Connector):
     def GetMoviesbyGenre(self,inputgenre):
-    """Get a list of movies by genre"""
+        """Get a list of movies by genre"""
         cursor = self.conn.cursor()
         sql = """SELECT m.movieId, 
                  SUBSTRING_INDEX(m.title, ' (', 1) AS movie_name,  
@@ -24,7 +24,7 @@ class MovieConnector(Connector):
         return movieslistbygenre
 
     def GetDetail(self,movieId):
-    """Get detailed information of a movie based on movieId"""
+        """Get detailed information of a movie based on movieId"""
         cursor = self.conn.cursor()
         sql = """SELECT m.movieId, 
                  SUBSTRING_INDEX(m.title, ' (', 1) AS movie_name, 
