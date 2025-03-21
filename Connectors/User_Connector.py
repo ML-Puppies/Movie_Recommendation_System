@@ -8,7 +8,7 @@ class UserConnector(Connector):
         self.current_user_id = None # Stores the userId of the currently logged-in user for recommendation
 
     def login(self, userId, password):
-    """Authenticates login credentials, returns a User object if valid, otherwise returns None"""
+        """Authenticates login credentials, returns a User object if valid, otherwise returns None"""
         cursor = self.conn.cursor()
         sql = "SELECT * FROM user WHERE userID = %s AND password = %s"
         val = (userId, password)
