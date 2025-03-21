@@ -1,21 +1,16 @@
-#python -m pip install mysql-connector-python
 import mysql.connector
 import traceback
 import pandas as pd
+
 class Connector:
-    def __init__(self,server=None, port=None, database=None, username=None, password=None):
-        if server == None:
-            self.server = "localhost"
-            self.port = 3306
-            self.database = "movie_ratings"
-            self.username = "root"
-            self.password = "Giang0409$"
-        else:
-            self.server = server
-            self.port = port
-            self.database = database
-            self.username = username
-            self.password = password
+    def __init__(self, server="localhost", port=3306, database="movie_ratings", username="root", password="@Obama123"):
+        self.server = server
+        self.port = 3306
+        self.database = "movie_ratings"
+        self.username = "root"
+        self.password = "@Obama123"
+        self.conn = None
+
     def connect(self):
         try:
             self.conn = mysql.connector.connect(
@@ -24,32 +19,31 @@ class Connector:
                 database=self.database,
                 user=self.username,
                 password=self.password)
+            print("✅ Kết nối cơ sở dữ liệu thành công!")
             return self.conn
-        except:
-            self.conn=None
+        except Exception as e:
+            print(f"❌ Lỗi kết nối: {e}")
             traceback.print_exc()
         return None
 
     def disConnect(self):
-        if self.conn != None:
+        if self.conn:
             self.conn.close()
+            print("🔌 Đã ngắt kết nối cơ sở dữ liệu.")
 
     def queryDataset(self, sql):
         try:
             cursor = self.conn.cursor()
             cursor.execute(sql)
-            df = pd.DataFrame(cursor.fetchall())
-            if not df.empty:
-                df.columns=cursor.column_names
+            df = pd.DataFrame(cursor.fetchall(), columns=cursor.column_names)
             return df
-        except:
+        except Exception as e:
+            print(f"❌ Lỗi truy vấn dữ liệu: {e}")
             traceback.print_exc()
         return None
+
     def getTablesName(self):
         cursor = self.conn.cursor()
-        cursor.execute("Show tables;")
-        results=cursor.fetchall()
-        tablesName=[]
-        for item in results:
-            tablesName.append([tableName for tableName in item][0])
-        return tablesName
+        cursor.execute("SHOW TABLES;")
+        results = cursor.fetchall()
+        return [item[0] for item in results]
