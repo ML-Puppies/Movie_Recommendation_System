@@ -74,5 +74,10 @@ ratings.drop(columns=['timestamp'], inplace=True)
 print(ratings)
 # 3.4.2. Tạo cột năm công chiếu phim trích từ "title" trong movies dataset
 movies['release_year'] = movies['title'].str.extract(r'\((\d{4})\)')
+# 3.4.3 Chuyển đổi cột genres thành dạng list
+# Chuyển genres thành dạng list
+# Thay đổi cấu hình để hiển thị tất cả các cột
+pd.set_option('display.max_columns', None)
+movies['genres'] = movies['genres'].apply(lambda x: x.split('|'))
 # Display result
 print(movies)
