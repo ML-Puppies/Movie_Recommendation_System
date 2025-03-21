@@ -3,7 +3,7 @@ from K22416C.FINAL.Connectors.Genres import Genres
 
 class GenresConnector(Connector):
     def GetAllGenres(self):
-    """ Retrieve a list of all unique movie genres"""
+        """Retrieve a list of all unique movie genres"""
         cursor=self.conn.cursor()
         sql="""SELECT DISTINCT genre
                FROM movies, 
