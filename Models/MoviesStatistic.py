@@ -27,7 +27,7 @@ class MoviesStatistic:
         plt.tight_layout()
 
         if return_figure:
-            return fig  # Trả về Figure thay vì hiển thị
+            return fig  
         else:
             plt.show()
 
@@ -61,7 +61,7 @@ class MoviesStatistic:
         scatter = ax.scatter(
             genre_summary['genre'],
             genre_summary['rating'],
-            s=genre_summary['num_movies'] * 3,  # Giảm tỷ lệ bóng xuống 0.5
+            s=genre_summary['num_movies'] * 3,
             color='darkred', alpha=0.6, edgecolor='black'
         )
 
@@ -79,9 +79,9 @@ class MoviesStatistic:
         plt.tight_layout()
 
         if return_figure:
-            return fig  # Trả về Figure để hiển thị trong PyQt hoặc nơi khác
+            return fig  
         else:
-            plt.show()  # Hiển thị nếu không cần trả về Figure
+            plt.show()  
 
     def top_10_movies_with_5_stars(self, return_figure=False):
         """Hiển thị Top 10 phim có đánh giá 5 sao nhiều nhất"""
@@ -91,7 +91,7 @@ class MoviesStatistic:
         top_movies_by_5_stars = pd.merge(five_star_count, self.movies[['movieId', 'title']], on='movieId')
         top_10_movies_by_5_stars = top_movies_by_5_stars.sort_values(by='rating', ascending=False).head(10)
 
-        print(top_10_movies_by_5_stars[['title', 'rating']])  # Debugging output
+        print(top_10_movies_by_5_stars[['title', 'rating']])  
 
         # Tạo Figure và Axes
         fig, ax = plt.subplots(figsize=(8, 6))
@@ -109,9 +109,9 @@ class MoviesStatistic:
         plt.tight_layout()
 
         if return_figure:
-            return fig  # Trả về Figure để hiển thị trong PyQt
+            return fig  
         else:
-            plt.show()  # Hiển thị nếu không cần trả về Figure
+            plt.show()  
 
     def top_10_most_rated_movies_last_year(self, return_figure=False):
         """Finds and visualizes the top 10 most rated movies from the most recent year in the dataset."""
@@ -161,9 +161,9 @@ class MoviesStatistic:
         plt.tight_layout()
 
         if return_figure:
-            return fig  # Trả về Figure để hiển thị trong PyQt
+            return fig  
         else:
-            plt.show()  # Hiển thị nếu không cần trả về Figure
+            plt.show()  
 
     def top_genres_over_time(self, return_figure=False):
         """Display the top 10 genres over time by the number of ratings."""
@@ -188,9 +188,9 @@ class MoviesStatistic:
         plt.tight_layout()
 
         if return_figure:
-            return fig  # Trả về Figure để hiển thị trong PyQt
+            return fig  
         else:
-            plt.show()  # Hiển thị nếu không cần trả về Figure
+            plt.show()  
 
     def top_10_movies_by_most_rated_genre(self, return_figure=False):
         """Find the top 10 most rated movies in the most popular genre and return the plot as a Figure."""
@@ -225,9 +225,9 @@ class MoviesStatistic:
         plt.tight_layout()
 
         if return_figure:
-            return fig  # Trả về Figure nếu được yêu cầu
+            return fig  
         else:
-            plt.show()  # Hiển thị biểu đồ nếu không yêu cầu trả về
+            plt.show()  
 
     def process(self):
         """Phương thức gọi tất cả các bước thống kê và vẽ biểu đồ cho phim"""
