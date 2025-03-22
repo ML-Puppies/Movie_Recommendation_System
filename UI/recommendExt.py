@@ -7,7 +7,7 @@ class recommendExt(Ui_MainWindow):
     def __init__(self, user_connector, user_id):
         super().__init__()
         self.userconn = user_connector  # Use the existing UserConnector passed during login
-        self.current_user_id = user_id  # ✅ Lưu user_id
+        self.current_user_id = user_id  
 
         self.cf_model = None  # Collaborative filtering model will be initialized here
 
@@ -25,11 +25,11 @@ class recommendExt(Ui_MainWindow):
         self.MainWindow.show()
 
     def get_current_user_id(self):
-        return self.current_user_id  # ✅ Trả về user_id
+        return self.current_user_id  
 
     def initialize_CF_model(self):
         """Initialize the collaborative filtering model"""
-        user_id = self.get_current_user_id()  # Get the current user's ID
+        user_id = self.get_current_user_id() 
         if user_id is not None:
             # Initialize the collaborative filtering model
             self.cf_model = MovieCollaborativeFiltering(connector=self.userconn, k=10, uuCF=True)
@@ -48,8 +48,8 @@ class recommendExt(Ui_MainWindow):
             for movie_id, rating in recommendations:
                 movie_info = self.userconn.queryDataset(f"SELECT title, genres FROM movies WHERE movieId = {movie_id}")
 
-                if movie_info is not None and not movie_info.empty:  # ✅ Sửa lỗi
-                    title, genres = movie_info.iloc[0]  # Lấy giá trị đầu tiên trong DataFrame
+                if movie_info is not None and not movie_info.empty:  
+                    title, genres = movie_info.iloc[0]  
                     row_position = self.tableWidget.rowCount()
                     self.tableWidget.insertRow(row_position)
 
@@ -57,7 +57,7 @@ class recommendExt(Ui_MainWindow):
                     self.tableWidget.setItem(row_position, 1, QTableWidgetItem(genres))
                     self.tableWidget.setItem(row_position, 2, QTableWidgetItem(f"{rating:.2f}"))
                 else:
-                    print(f"⚠️ Không tìm thấy thông tin phim với movieId: {movie_id}")  # Debug
+                    print(f"Movie information not found for movieId: {movie_id}")  
         else:
-            print("❌ Không có gợi ý phim nào.")
+            print("No movie recommendations available.")
 
