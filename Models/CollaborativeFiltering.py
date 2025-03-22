@@ -27,10 +27,10 @@ class MovieCollaborativeFiltering(Preprocessing):
         self.item_map = {}
         self.n_users = 0
         self.n_items = 0
-        self.Ybar = None  # Khởi tạo Ybar tại đây
+        self.Ybar = None 
 
     def load_data_and_process(self):
-        """Tải và xử lý dữ liệu"""
+        """Load and process data through Preprocess.py"""
         self.load_data()
         self.process()
         df_movies, df_ratings = self.get_dataframes()
