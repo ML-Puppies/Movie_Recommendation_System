@@ -16,7 +16,7 @@ class homepageExt(Ui_MainWindow):
         self.userconn = user_connector
         self.current_user_id = user_id # Store current user ID for recommendation
         print(f"Current user ID in homepageExt: {self.current_user_id}")
-        self.connector = Connector()  
+        self.connector = Connector()  # Thêm dòng này để tạo đối tượng connector
 
         self.genresconn = GenresConnector()
         self.genreslist = []
@@ -111,7 +111,7 @@ class homepageExt(Ui_MainWindow):
 
             self.MainWindow.hide()
             self.mainwindow = QMainWindow()
-            self.myui = recommendExt(user_connector=self.userconn, user_id=self.current_user_id)  
+            self.myui = recommendExt(user_connector=self.userconn, user_id=self.current_user_id)  # Truyền user_connector
             self.myui.setupUi(self.mainwindow)
             self.myui.showWindow()
         except:
@@ -121,9 +121,12 @@ class homepageExt(Ui_MainWindow):
         try:
             self.MainWindow.hide()
             self.mainwindow = QMainWindow()
-            self.myui = statisticExt(self.connector)  
+            self.myui = statisticExt(user_connector=self.userconn, user_id=self.current_user_id)  # Truyền đúng connector
             self.myui.setupUi(self.mainwindow)
             self.myui.showWindow()
         except Exception as e:
             traceback.print_exc()
+
+
+
 
