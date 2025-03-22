@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 class Preprocessing:
     def __init__(self, connector):
         self.connector = connector
@@ -60,7 +61,7 @@ class Preprocessing:
     def convert_genres_to_list(self):
         """Convert Genres to list"""
         self.movies['genres'] = self.movies['genres'].apply(lambda x: x.split('|'))
-        
+
     def process(self):
         """Thực hiện tất cả các bước tiền xử lý"""
         print("🔍 Kiểm tra self.movies trước khi xử lý:", type(self.movies))
@@ -75,9 +76,8 @@ class Preprocessing:
         self.calculate_elapsed_time()
         self.clean_data()
         self.convert_genres_to_list()
-        
+
     def get_dataframes(self):
         """Trả về hai DataFrame đã xử lý"""
         return self.movies, self.ratings
 
-    
