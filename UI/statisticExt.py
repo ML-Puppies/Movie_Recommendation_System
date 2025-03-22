@@ -1,15 +1,22 @@
+import traceback
+
 import matplotlib.pyplot as plt
 from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QListWidgetItem, QTableWidgetItem, QMainWindow
 from K22416C.FINAL.Models.MoviesStatistic import MoviesStatistic
 from K22416C.FINAL.UI.statistic import Ui_MainWindow
+from K22416C.FINAL.UI.recommendExt import recommendExt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 
 class statisticExt(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, connector):
+    def __init__(self, user_connector, user_id):
         """Initializes the main window and sets up the connection and statistics object."""
         super().__init__()
-        self.connector = connector
+        self.userconn = user_connector  # Use the existing UserConnector passed during login
+        self.current_user_id = user_id
+
+        self.connector = user_connector  # Use the provided user_connector here
         self.connector.connect()
         self.movies_statistic = MoviesStatistic(self.connector)
         self.setupUi(self)
@@ -19,6 +26,7 @@ class statisticExt(QtWidgets.QMainWindow, Ui_MainWindow):
         super().setupUi(self)
         super().setupUi(MainWindow)
         self.MainWindow = MainWindow
+        self.pushButton_Recommend.clicked.connect(self.switch_recommend_window)
 
         self.pushbuttonTop10MBR.clicked.connect(self.show_top_10_movies_by_ratings)
         self.pushbuttonTop10GBR.clicked.connect(self.show_top_genres_by_ratings)
@@ -30,6 +38,9 @@ class statisticExt(QtWidgets.QMainWindow, Ui_MainWindow):
     def showWindow(self):
         """Displays the main window."""
         self.MainWindow.show()
+
+    def get_current_user_id(self):
+        return self.current_user_id
 
     def show_top_10_movies_by_ratings(self):
         """Displays the top 10 movies by ratings."""
@@ -142,3 +153,14 @@ class statisticExt(QtWidgets.QMainWindow, Ui_MainWindow):
         # Ensure layout is updated and resized dynamically to fit the canvas
         self.verticalLayoutPlot.update()
 
+    def switch_recommend_window(self):
+        try:
+            print(f"Current user ID in homepageExt before switching: {self.current_user_id}")
+
+            self.MainWindow.hide()
+            self.mainwindow = QMainWindow()
+            self.myui = recommendExt(user_connector=self.userconn, user_id=self.current_user_id)  # Truyền user_connector
+            self.myui.setupUi(self.mainwindow)
+            self.myui.showWindow()
+        except:
+            traceback.print_exc()
