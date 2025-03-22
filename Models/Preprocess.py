@@ -14,21 +14,21 @@ class Preprocessing:
         # Kiểm tra dữ liệu bị None
         if self.movies is None:
             raise ValueError(
-                "⚠ Lỗi: Không thể tải dữ liệu từ bảng 'movies'. Kiểm tra lại kết nối hoặc dữ liệu trong database!")
+                "Lỗi: Không thể tải dữ liệu từ bảng 'movies'. Kiểm tra lại kết nối hoặc dữ liệu trong database!")
 
         if self.ratings is None:
             raise ValueError(
-                "⚠ Lỗi: Không thể tải dữ liệu từ bảng 'ratings'. Kiểm tra lại kết nối hoặc dữ liệu trong database!")
+                "Lỗi: Không thể tải dữ liệu từ bảng 'ratings'. Kiểm tra lại kết nối hoặc dữ liệu trong database!")
 
         # Kiểm tra nếu DataFrame rỗng
         if self.movies.empty:
-            raise ValueError("⚠ Lỗi: Bảng 'movies' không có dữ liệu!")
+            raise ValueError("Lỗi: Bảng 'movies' không có dữ liệu!")
 
         if self.ratings.empty:
-            raise ValueError("⚠ Lỗi: Bảng 'ratings' không có dữ liệu!")
+            raise ValueError("Lỗi: Bảng 'ratings' không có dữ liệu!")
 
-        print("✅ Movies DataFrame:\n", self.movies.head())
-        print("✅ Ratings DataFrame:\n", self.ratings.head())
+        print("Movies DataFrame:\n", self.movies.head())
+        print("Ratings DataFrame:\n", self.ratings.head())
 
     def convert_data_types(self):
         """Chuyển đổi kiểu dữ liệu"""
@@ -64,11 +64,11 @@ class Preprocessing:
 
     def process(self):
         """Thực hiện tất cả các bước tiền xử lý"""
-        print("🔍 Kiểm tra self.movies trước khi xử lý:", type(self.movies))
-        print("🔍 Kiểm tra self.ratings trước khi xử lý:", type(self.ratings))
+        print("Kiểm tra self.movies trước khi xử lý:", type(self.movies))
+        print("Kiểm tra self.ratings trước khi xử lý:", type(self.ratings))
 
         if self.movies is None or self.ratings is None:
-            raise ValueError("❌ Lỗi: self.movies hoặc self.ratings đã bị None trước khi xử lý!")
+            raise ValueError("Lỗi: self.movies hoặc self.ratings đã bị None trước khi xử lý!")
 
         self.convert_data_types()
         self.extract_year_from_title()
@@ -80,4 +80,3 @@ class Preprocessing:
     def get_dataframes(self):
         """Trả về hai DataFrame đã xử lý"""
         return self.movies, self.ratings
-
