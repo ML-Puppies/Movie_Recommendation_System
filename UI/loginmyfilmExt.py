@@ -43,7 +43,7 @@ class loginmyfilmExt(Ui_MainWindow):
                 print(f"Current User ID after login: {current_user_id}")
 
                 # Open homepage with user session
-                self.myui = homepageExt(user_connector=self.userconn, user_id=current_user_id)  # Truyền user_connector vào homepageExt
+                self.myui = homepageExt(user_connector=self.userconn, user_id=current_user_id)  
                 self.myui.setupUi(self.mainwindow)
                 self.myui.showWindow()
 
