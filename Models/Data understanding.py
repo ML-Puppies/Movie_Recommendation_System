@@ -1,16 +1,17 @@
+from K22416C.FINAL.Connectors.Connector import Connector
 import pandas as pd
-# CHAPTER 3: DATA PREPROCESSING AND ANALYSIS
-# 3.1. Understanding the Data
-# 3.1.1. Introduction to the Dataset
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-movies = pd.read_csv("../DATASET/movies.csv", encoding='ISO-8859-1', dtype='unicode')
-print("Sample data of movies dataset")
-print(movies.head())
-ratings = pd.read_csv("../DATASET/ratings.csv", encoding='ISO-8859-1', dtype='unicode')
-print("Sample data of ratings dataset")
-print(ratings.head())
-print("Shape of movies dataset: ", movies.shape)
-print("Shape of ratings dataset: ", ratings.shape)
+# Connect to the MySQL database
+connector = Connector()
+connector.connect()  
+
+# Load data from the database
+movies = connector.queryDataset("SELECT * FROM movies;")
+ratings = connector.queryDataset("SELECT * FROM ratings;")
+user = connector.queryDataset("SELECT * FROM user;")
+
 
 # 3.1.2. Description of Variables
 # Checking basic information about the dataset
@@ -72,11 +73,13 @@ ratings['elapsed_time'] = latest_timestamp - ratings['year']
 # 4. Drop original timestamp column
 ratings.drop(columns=['timestamp'], inplace=True)
 print(ratings)
-# 3.4.2. Tạo cột năm công chiếu phim trích từ "title" trong movies dataset
+
+# 3.4.2. Create a 'release_year' column extracted from the 'title' in the movies dataset
 movies['release_year'] = movies['title'].str.extract(r'\((\d{4})\)')
-# 3.4.3 Chuyển đổi cột genres thành dạng list
-# Chuyển genres thành dạng list
-# Thay đổi cấu hình để hiển thị tất cả các cột
+
+# 3.4.3 Convert the 'genres' column into a list
+# Convert the 'genres' column into a list
+# Change settings to display all column
 pd.set_option('display.max_columns', None)
 movies['genres'] = movies['genres'].apply(lambda x: x.split('|'))
 # Display result
