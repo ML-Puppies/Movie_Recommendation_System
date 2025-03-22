@@ -4,12 +4,12 @@ import pandas as pd
 
 class Connector:
     def __init__(self, server="localhost", port=3306, database="movie_ratings", username="root", password="@Obama123"):
-        self.server = server  # The server address (default is localhost)
-        self.port = 3306  # Port number for MySQL (default is 3306)
-        self.database = "movie_ratings"  # The name of the database
-        self.username = "root"  # Username for MySQL login
-        self.password = "@Obama123"  # Password for MySQL login
-        self.conn = None  # This will hold the database connection
+        self.server = server  
+        self.port = 3306  
+        self.database = "movie_ratings" 
+        self.username = "root"  
+        self.password = "@Obama123" 
+        self.conn = None  
 
     def connect(self):
         """Establish a connection to the MySQL database"""
